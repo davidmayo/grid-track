@@ -5,6 +5,13 @@ import time
 
 random.seed(40351)
 
+AZ_STEP = 10
+EL_STEP = 10
+
+# AZ_STEP = 1
+# EL_STEP = 1
+
+
 def calc_amplitude(azimuth, elevation):
     distance = (azimuth**2 + elevation**2) ** 0.5
     # return distance
@@ -13,9 +20,9 @@ def calc_amplitude(azimuth, elevation):
 
 def generate_fake_data(delay, filename):
     azimuth = -80
-    azimuth_direction = 10
+    azimuth_direction = AZ_STEP
     elevation = -80
-    elevation_direction = 10
+    elevation_direction = EL_STEP
     amplitude = calc_amplitude(azimuth, elevation)
     cut_index = 0  # Initialize cut_index
 
@@ -23,7 +30,14 @@ def generate_fake_data(delay, filename):
     with open(filename, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(
             file,
-            fieldnames=["index", "timestamp", "azimuth", "elevation", "amplitude", "cut_index"],
+            fieldnames=[
+                "index",
+                "timestamp",
+                "azimuth",
+                "elevation",
+                "amplitude",
+                "cut_index",
+            ],
             dialect="unix",
         )
         writer.writeheader()
@@ -35,7 +49,14 @@ def generate_fake_data(delay, filename):
         with open(filename, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.DictWriter(
                 file,
-                fieldnames=["index", "timestamp", "azimuth", "elevation", "amplitude", "cut_index"],
+                fieldnames=[
+                    "index",
+                    "timestamp",
+                    "azimuth",
+                    "elevation",
+                    "amplitude",
+                    "cut_index",
+                ],
                 dialect="unix",
             )
             data = {
@@ -64,7 +85,11 @@ def generate_fake_data(delay, filename):
 
 
 if __name__ == "__main__":
-    delay = 0.10
+    import sys
+    if len(sys.argv) > 1:
+        delay = float(sys.argv[1])
+    else:
+        delay = 2.5
     filename = "./data/fake_data.csv"
     generate_fake_data(delay, filename)
     print(f"Generating data indefinitely and saving to {filename}")
