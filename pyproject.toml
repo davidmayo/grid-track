@@ -1,0 +1,21 @@
+[project]
+name = "grid-track"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "David Mayo", email = "dcmayo@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "dash>=2.18.2",
+    "dash-bootstrap-components>=1.7.1",
+    "matplotlib>=3.10.1",
+    "numpy>=2.2.3",
+    "pandas>=2.2.3",
+    "plotly>=6.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
